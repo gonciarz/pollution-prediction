@@ -2,12 +2,14 @@ package com.worldremit.deduplication
 
 import com.worldremit.avro.*
 import com.worldremit.util.*
+import com.worldremit.util.core.AssumeConnection
 import com.worldremit.util.core.TestContext
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
+@AssumeConnection(uris = ["tcp://localhost:8081"])
 internal class WeatherDeduplicationTopologyTest {
     private val testContext = WeatherDeduplicationTopology().let {
         TopologyUtil.createTopologyFunction(

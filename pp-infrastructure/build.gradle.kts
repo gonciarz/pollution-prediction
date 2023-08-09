@@ -2,17 +2,23 @@ import com.github.davidmc24.gradle.plugin.avro.GenerateAvroProtocolTask
 import com.github.davidmc24.gradle.plugin.avro.GenerateAvroSchemaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url = uri("https://packages.confluent.io/maven/") }
+        maven { url = uri("https://repository.mulesoft.org/nexus/content/repositories/public/") }
+    }
+}
+
 plugins {
     id("org.springframework.boot") version "2.5.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.5.20"
     kotlin("plugin.spring") version "1.5.20"
-
-    //    id("com.github.oasalonen.kafka-schema-registry-gradle-plugin") version "0.4.0-SNAPSHOT"
-    id("com.github.imflog.kafka-schema-registry-gradle-plugin") version "1.4.0"
-    id("com.github.davidmc24.gradle.plugin.avro") version "1.2.0"
-    id("com.github.davidmc24.gradle.plugin.avro-base") version "1.2.0"
-    id("com.avast.gradle.docker-compose") version "0.14.3" apply true
+    id("com.github.imflog.kafka-schema-registry-gradle-plugin") version "1.6.0"
+    id("com.github.davidmc24.gradle.plugin.avro") version "1.8.0"
+    id("com.avast.gradle.docker-compose") version "0.17.0" apply true
 }
 
 group = "com.worldremit"
@@ -21,6 +27,7 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://packages.confluent.io/maven/") }
 }
 
 dependencies {
@@ -32,8 +39,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.kafka:spring-kafka-test")
     implementation("io.github.microutils:kotlin-logging:1.7.6")
-
-    compileOnly("org.apache.avro:avro:1.10.1")
+    implementation("org.apache.avro:avro:1.11.2")
 }
 
 tasks.withType<KotlinCompile> {
@@ -63,15 +69,14 @@ avro {
 }
 
 dockerCompose {
-    useComposeFiles = listOf("${project.rootDir}/docker-compose.yml")
-    captureContainersOutput = false
-    stopContainers = true
-    removeContainers = true
-    removeVolumes = true
-    removeOrphans = true
-    forceRecreate = true
-    projectName = project.name
-
+    useComposeFiles.set(listOf("${project.rootDir}/docker-compose.yml"))
+    captureContainersOutput.set(false)
+    stopContainers.set(true)
+    removeContainers.set(true)
+    removeVolumes.set(true)
+    removeOrphans.set(true)
+    forceRecreate.set(true)
+    setProjectName(project.name)
 }
 
 val avroSrcDir = "src/main/avro"

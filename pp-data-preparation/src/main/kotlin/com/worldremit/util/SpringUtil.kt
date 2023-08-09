@@ -14,7 +14,9 @@ import org.springframework.core.io.ClassPathResource
  */
 inline fun <reified T> loadConfig(prefix: String): T {
     val factoryBean = YamlPropertiesFactoryBean().apply {
-        setResources(ClassPathResource("application.yml"))
+        setResources(
+                ClassPathResource("application.yml"),
+        )
     }
     val propertySource = MapConfigurationPropertySource(factoryBean.getObject())
     return Binder(propertySource).bind(prefix, T::class.java).get()

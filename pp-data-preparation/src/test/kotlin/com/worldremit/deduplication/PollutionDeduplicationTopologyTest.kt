@@ -6,12 +6,14 @@ import com.worldremit.avro.PollutionRaw
 import com.worldremit.avro.PollutionRawData
 import com.worldremit.util.*
 import com.worldremit.util.TopologyUtil.createTopologyFunction
+import com.worldremit.util.core.AssumeConnection
 import com.worldremit.util.core.TestContext
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
+@AssumeConnection(uris = ["tcp://localhost:8081"])
 internal class PollutionDeduplicationTopologyTest {
 
     private val testContext = PollutionDeduplicationTopology().let {

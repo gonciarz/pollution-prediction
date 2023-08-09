@@ -3,8 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.5.2"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
-	id("com.commercehub.gradle.plugin.avro") version "0.19.1"
-	id("com.commercehub.gradle.plugin.avro-base") version "0.19.1"
+	id("com.github.davidmc24.gradle.plugin.avro") version "1.8.0"
 	kotlin("jvm") version "1.5.20"
 	kotlin("plugin.spring") version "1.5.20"
 //	application
@@ -42,7 +41,7 @@ dependencies {
 	implementation("org.apache.commons:commons-math3:3.6.1")
 	implementation("io.github.microutils:kotlin-logging:1.7.6")
 	implementation("io.confluent:kafka-streams-avro-serde:5.5.1")
-	implementation("org.apache.avro:avro:1.10.1")
+	implementation("org.apache.avro:avro:1.11.2")
 //	implementation("com.google.guava:guava:30.1.1-jre")
 
 	testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.23")
@@ -54,10 +53,6 @@ dependencyManagement {
 	imports {
 		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
 	}
-}
-
-avro {
-	fieldVisibility.set("PRIVATE")
 }
 
 //application {

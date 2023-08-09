@@ -8,6 +8,7 @@ import com.worldremit.avro.KmeansModels
 import com.worldremit.avro.Location
 import com.worldremit.avro.MeasurementNormalized
 import com.worldremit.avro.Predicted
+import com.worldremit.util.AssumeConnection
 import com.worldremit.util.TestContext
 import com.worldremit.util.Topic
 import org.apache.kafka.streams.StreamsBuilder
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
+@AssumeConnection(uris = ["tcp://localhost:8081"])
 internal class PredictorTopologyTest {
 
     private val predictorService = mock<PredictionService> {

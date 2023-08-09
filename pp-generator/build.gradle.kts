@@ -5,8 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	kotlin("jvm") version "1.5.20"
 	kotlin("plugin.spring") version "1.5.20"
-	id("com.commercehub.gradle.plugin.avro") version "0.19.1"
-	id("com.commercehub.gradle.plugin.avro-base") version "0.19.1"
+	id("com.github.davidmc24.gradle.plugin.avro") version "1.8.0"
 }
 
 group = "com.worldremit"
@@ -28,12 +27,8 @@ dependencies {
 	testImplementation("org.springframework.kafka:spring-kafka-test")
 
 	implementation("io.confluent:kafka-streams-avro-serde:5.5.1")
-	implementation("org.apache.avro:avro:1.10.1")
+	implementation("org.apache.avro:avro:1.11.2")
 	implementation("io.github.microutils:kotlin-logging:1.7.6")
-}
-
-avro {
-	fieldVisibility.set("PRIVATE")
 }
 
 tasks.withType<KotlinCompile> {

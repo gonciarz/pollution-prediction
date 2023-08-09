@@ -9,11 +9,13 @@ import com.worldremit.normalizer.NormalizerTopology
 import com.worldremit.util.core.TestContext
 import com.worldremit.util.Topic
 import com.worldremit.util.TopologyUtil
+import com.worldremit.util.core.AssumeConnection
 import com.worldremit.util.loadConfig
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 
+@AssumeConnection(uris = ["tcp://localhost:8081"])
 internal class NormalizerTopologyTest {
 
     private val featureService = FeatureService(loadConfig("features"))

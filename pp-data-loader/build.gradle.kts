@@ -3,8 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.3.6.RELEASE"
 	id("io.spring.dependency-management") version "1.0.10.RELEASE"
-	id("com.commercehub.gradle.plugin.avro") version "0.19.1"
-	id("com.commercehub.gradle.plugin.avro-base") version "0.19.1"
+	id("com.github.davidmc24.gradle.plugin.avro") version "1.8.0"
 	kotlin("jvm") version "1.4.20"
 	kotlin("plugin.spring") version "1.4.20"
 }
@@ -15,7 +14,6 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
-	jcenter()
 	maven { url = uri("https://packages.confluent.io/maven/") }
 }
 
@@ -33,17 +31,13 @@ dependencies {
 
 	implementation("io.confluent:kafka-avro-serializer:6.0.0")
 	implementation("io.confluent:kafka-streams-avro-serde:6.0.0")
-	implementation("org.apache.avro:avro:1.10.0")
+	implementation("org.apache.avro:avro:1.11.2")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
-}
-
-avro {
-	fieldVisibility.set("PRIVATE")
 }
 
 tasks.withType<Test> {
